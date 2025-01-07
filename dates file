@@ -1,0 +1,10 @@
+%macro loop_dates;
+data bd.perf;
+    set
+    %do i = 20240501 %to 20240519;
+        bd.pl_initial_datapull_&i
+    %end;;
+run;
+%mend loop_dates;
+
+%loop_dates;
