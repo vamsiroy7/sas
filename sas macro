@@ -1,0 +1,17 @@
+%macro runRDM;
+    %let start_date = '19JAN2024'd;
+    %let end_date = '30SEP2024'd;
+
+    /* Initialize date variable */
+    %let current_date = &start_date;
+
+    /* Loop through dates */
+    %do %while (%sysfunc(intnx(day, &current_date, 0)) <= %sysfunc(intnx(day, &end_date, 0)));
+        %let formatted_date = %sysfunc(putn(&current_date, yymmddn8.)); /* Format date as YYYYMMDD */
+        %RDM(&formatted_date); /* Call the RDM macro */
+        %let current_date = %sysfunc(intnx(day, &current_date, 1)); /* Move to the next date */
+    %end;
+%mend runRDM;
+
+/* Call the macro to execute the loop */
+%runRDM;
